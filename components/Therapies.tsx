@@ -13,10 +13,14 @@ const icons: Record<string, "wave" | "laser" | "bolt" | "boot"> = {
   nyirokcsizma: "boot",
 };
 
-const chips = { hidden: {}, show: { transition: { staggerChildren: 0.035 } } };
+const chips = { hidden: {}, show: { transition: { staggerChildren: 0.03 } } };
 const chip = {
   hidden: { opacity: 0, y: 10, scale: 0.9 },
   show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: luxe } },
+};
+const row = {
+  hidden: { opacity: 0, x: -10 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: luxe } },
 };
 
 export default function Therapies() {
@@ -126,10 +130,16 @@ export default function Therapies() {
                   </div>
                 )}
 
-                <p className="mt-8 font-display text-xl font-semibold text-rose">Indikációk</p>
-                <motion.ul className="mt-3 flex flex-wrap gap-2" variants={chips} initial="hidden" animate="show">
+                <p className="mt-9 font-display text-xl font-semibold text-rose">Indikációk</p>
+                <span className="mt-2 block h-px w-12 bg-rose/60" />
+                <motion.ul className="mt-3 sm:columns-2 sm:gap-x-10 lg:columns-3" variants={chips} initial="hidden" animate="show">
                   {t.indications.map((x) => (
-                    <motion.li key={x} variants={chip} className="chip chip-dark">
+                    <motion.li
+                      key={x}
+                      variants={row}
+                      className="flex break-inside-avoid items-start gap-3 border-b border-cream/10 py-2.5 text-[0.95rem] leading-snug text-cream/85"
+                    >
+                      <span className="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-rose" />
                       {x}
                     </motion.li>
                   ))}
@@ -137,9 +147,17 @@ export default function Therapies() {
               </div>
               <div className="bg-rose p-7 text-forest sm:p-10">
                 <p className="font-display text-xl font-semibold uppercase tracking-[0.06em]">{t.contraTitle}</p>
-                <motion.ul className="mt-3 flex flex-wrap gap-2" variants={chips} initial="hidden" animate="show">
+                <span className="mt-2 block h-px w-12 bg-forest/40" />
+                <motion.ul className="mt-3 sm:columns-2 sm:gap-x-10 lg:columns-3" variants={chips} initial="hidden" animate="show">
                   {t.contraindications.map((x) => (
-                    <motion.li key={x} variants={chip} className="rounded-full border border-forest/15 bg-paper/40 px-3.5 py-1.5 text-sm font-medium">
+                    <motion.li
+                      key={x}
+                      variants={row}
+                      className="flex break-inside-avoid items-start gap-3 border-b border-forest/12 py-2.5 text-[0.95rem] leading-snug text-forest/90"
+                    >
+                      <svg viewBox="0 0 12 12" className="mt-[0.45em] h-2.5 w-2.5 shrink-0 text-forest/70" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
+                        <path d="M2 2l8 8M10 2l-8 8" />
+                      </svg>
                       {x}
                     </motion.li>
                   ))}
@@ -165,14 +183,21 @@ export default function Therapies() {
               <p className="mt-2 text-ink-soft">Lézer-, ultrahang- és elektroterápia – ha az alábbiak bármelyike igaz Önre, hívjon bátran.</p>
             </Reveal>
             <motion.ul
-              className="mt-6 flex flex-wrap gap-2"
+              className="mt-6 sm:columns-2 sm:gap-x-10"
               variants={chips}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-10% 0px" }}
             >
               {complaints.map((c) => (
-                <motion.li key={c} variants={chip} className="chip chip-rose cursor-default transition-transform duration-300 hover:-translate-y-0.5">
+                <motion.li
+                  key={c}
+                  variants={row}
+                  className="group flex break-inside-avoid items-start gap-3 border-b border-forest/10 py-2.5 text-[0.95rem] leading-snug text-forest/90"
+                >
+                  <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-blush-2 text-rose-deep transition-colors duration-300 group-hover:bg-rose group-hover:text-forest">
+                    <Icon name="check" className="h-3 w-3" strokeWidth={2.6} />
+                  </span>
                   {c}
                 </motion.li>
               ))}

@@ -227,8 +227,11 @@ export default function Moti() {
           <p className="hidden text-xs font-medium text-cream/50 sm:block">← húzza a kártyákat →</p>
         </Reveal>
         <div ref={trackRef} className="overflow-hidden">
+          {/* w-max: a húzható doboz a tartalom szélességét veszi fel, így a dragConstraints az utolsó kártyáig enged.
+              A bal padding a .container-x belső élére igazít (100% = a track szélessége). */}
           <motion.div
-            className="container-x flex cursor-grab gap-5 active:cursor-grabbing"
+            className="flex w-max cursor-grab gap-5 pr-6 active:cursor-grabbing sm:pr-10"
+            style={{ paddingLeft: "max(1rem, calc((100% - 80rem) / 2 + 2.5rem))" }}
             drag="x"
             dragConstraints={trackRef}
             dragElastic={0.08}
