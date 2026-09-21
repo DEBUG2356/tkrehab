@@ -15,7 +15,7 @@ export default function Problems() {
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
-    <section ref={ref} id="panaszok" className="relative scroll-mt-24 overflow-hidden bg-cream-2/60 py-24 lg:py-32" aria-labelledby="problems-title">
+    <section ref={ref} id="panaszok" className="relative scroll-mt-24 overflow-clip bg-cream-2/60 py-24 lg:py-32" aria-labelledby="problems-title">
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
