@@ -32,7 +32,7 @@ export default function Moti() {
     >
       <div aria-hidden className="pointer-events-none absolute -left-32 top-1/3 h-[30rem] w-[30rem] rounded-full bg-rose/15 blur-3xl" />
 
-      <div className="container-x relative grid gap-14 lg:grid-cols-12 lg:gap-10">
+      <div className="container-x relative grid gap-14 lg:grid-cols-12 lg:items-center lg:gap-10">
         {/* Kép „szkennerrel" */}
         <div className="relative lg:col-span-5">
           <motion.figure
@@ -145,14 +145,20 @@ export default function Moti() {
             ))}
           </div>
 
-          {/* menet */}
-          <div className="mt-12 grid gap-10 md:grid-cols-2">
+        </div>
+      </div>
+
+      {/* Menet + kinek ajánlom – teljes szélességben, két egyenlő oszlopban, középre igazítva */}
+      <div className="container-x relative mt-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid gap-12 md:grid-cols-2 md:gap-16">
             <div>
               <Reveal>
-                <h3 className="font-display text-2xl font-semibold text-cream">A vizsgálat menete</h3>
+                <p className="eyebrow eyebrow-light">Lépésről lépésre</p>
+                <h3 className="mt-2 font-display text-3xl font-semibold text-cream">A vizsgálat menete</h3>
               </Reveal>
               <motion.ol
-                className="relative mt-6 space-y-6"
+                className="relative mt-8 space-y-7"
                 variants={stepsWrap}
                 initial="hidden"
                 whileInView="show"
@@ -172,50 +178,61 @@ export default function Moti() {
                     <span className="relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-full bg-rose font-display text-lg font-bold text-forest">
                       {i + 1}.
                     </span>
-                    <div>
-                      <h4 className="font-display text-lg font-semibold text-rose">{s.title}</h4>
-                      <p className="mt-1 text-sm leading-relaxed text-cream/70">{s.text}</p>
+                    <div className="pt-1.5">
+                      <h4 className="font-display text-xl font-semibold text-rose">{s.title}</h4>
+                      <p className="mt-1.5 text-[0.95rem] leading-relaxed text-cream/70">{s.text}</p>
                     </div>
                   </motion.li>
                 ))}
               </motion.ol>
             </div>
+
             <div>
               <Reveal>
-                <h3 className="font-display text-2xl font-semibold text-cream">Kinek ajánlom?</h3>
+                <p className="eyebrow eyebrow-light">Célcsoport</p>
+                <h3 className="mt-2 font-display text-3xl font-semibold text-cream">Kinek ajánlom?</h3>
               </Reveal>
-              <ul className="mt-6 space-y-3">
+              <ul className="mt-8">
                 {moti.forWhom.map((f, i) => (
-                  <Reveal as="li" key={f} delay={0.1 + i * 0.08} className="flex items-start gap-3 text-[0.95rem] leading-snug text-cream/85">
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-rose/20 text-rose">
+                  <Reveal
+                    as="li"
+                    key={f}
+                    delay={0.1 + i * 0.08}
+                    className="flex items-start gap-4 border-b border-cream/10 py-3.5 text-[1rem] leading-snug text-cream/85 first:border-t"
+                  >
+                    <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-rose/20 text-rose">
                       <Icon name="check" className="h-3.5 w-3.5" strokeWidth={2.4} />
                     </span>
                     {f}
                   </Reveal>
                 ))}
               </ul>
-              <Reveal delay={0.4} className="mt-7 flex flex-wrap gap-2">
-                {moti.benefits.map((b) => (
-                  <span key={b} className="chip chip-dark">
-                    {b}
-                  </span>
-                ))}
-              </Reveal>
             </div>
           </div>
 
-          <Reveal delay={0.2} className="mt-12 flex flex-col gap-5 rounded-[2rem] bg-paper p-7 text-forest shadow-[var(--shadow-soft)] sm:flex-row sm:items-center">
-            <div className="flex-1">
-              <p className="eyebrow">A vizsgálat ára</p>
-              <p className="mt-1 font-display text-4xl font-bold">{moti.price}</p>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{moti.priceIncludes}</p>
+          {/* árpanel – középen, az előnyök egy sorban */}
+          <Reveal delay={0.2} className="mt-16 rounded-[2rem] bg-paper p-7 text-forest shadow-[var(--shadow-soft)] sm:p-9">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
+              <div className="flex-1">
+                <p className="eyebrow">A vizsgálat ára</p>
+                <p className="mt-1 font-display text-5xl font-bold">{moti.price}</p>
+                <p className="mt-3 max-w-xl text-[0.95rem] leading-relaxed text-ink-soft">{moti.priceIncludes}</p>
+              </div>
+              <Magnetic>
+                <a href={brand.phoneHref} className="btn btn-primary">
+                  <Icon name="phone" className="h-4 w-4" />
+                  Időpontot kérek
+                </a>
+              </Magnetic>
             </div>
-            <Magnetic>
-              <a href={brand.phoneHref} className="btn btn-primary">
-                <Icon name="phone" className="h-4 w-4" />
-                Időpontot kérek
-              </a>
-            </Magnetic>
+            <ul className="mt-7 grid gap-3 border-t border-forest/10 pt-6 sm:grid-cols-3">
+              {moti.benefits.map((b, i) => (
+                <li key={b} className="flex items-center gap-3 text-sm font-medium text-forest">
+                  <span className="script text-xl text-rose-deep">0{i + 1}</span>
+                  {b}
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </div>
